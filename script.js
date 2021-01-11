@@ -33,25 +33,33 @@ for(i=0; i<currentCard.length; i++) {
         // first click
         if(currentTurn.innerHTML == "Please choose your first card") {
             cardOne = e.target.id;
-            cardFlipUp(cardOne, e);
-            currentTurn.innerHTML = "Please choose your second card";
-            match.innerHTML = "Try for a match";
+            // can only pick face down cards
+            if(cards[cardOne].faceUp == false) {
+                cardFlipUp(cardOne, e);
+                currentTurn.innerHTML = "Please choose your second card";
+                match.innerHTML = "Try for a match";
+            }
         // second click
         }else if(currentTurn.innerHTML == "Please choose your second card") {
             cardTwo = e.target.id;
-            cardFlipUp(cardTwo, e);
-            currentTurn.innerHTML = "Please choose your first card"
-            // matched cards correctly
-            if(cards[cardOne].card == cards[cardTwo].card) {
-                match.innerHTML = "It's a match!";
-                console.log("It's a match!");
-            // did not match cards correctly
-            }else {
-                match.innerHTML = "Try again!"
-                console.log("Try again!");
-                resetCards(cardOne);
-                resetCards(cardTwo);
+            // can only pick face down cards
+            if(cards[cardTwo].faceUp == false){
+                cardFlipUp(cardTwo, e);
+                currentTurn.innerHTML = "Please choose your first card"
+                // matched cards correctly
+                if(cards[cardOne].card == cards[cardTwo].card) {
+                    match.innerHTML = "It's a match!";
+                    console.log("It's a match!");
+                    winnerWinner();
+                // did not match cards correctly
+                }else {
+                    match.innerHTML = "Try again!"
+                    console.log("Try again!");
+                    resetCards(cardOne);
+                    resetCards(cardTwo);
+                }
             }
+            cardFlipUp(cardTwo, e);
         }
     })
 }
@@ -65,6 +73,7 @@ function cardFlipUp(myCard, e) {
 
 // turning a card down
 function resetCards(flipBack) {
+    // trying to remove event listener
     for(i=0; i<currentCard.length; i++){
         currentCard[i].removeEventListener("click", function(e){
             e.preventDefault();
@@ -75,8 +84,12 @@ function resetCards(flipBack) {
         let resetCard = document.querySelector(`#${flipBack}`);
         resetCard.style.background = "#006680";
         resetCard.innerHTML = "";
-        console.log(resetCard.id);
         cards[resetCard.id].faceUp = false;
     }, 2000);
+}
 
+function winnerWinner() {
+    Object.keys(cards).forEach(function(key) {
+        console.log(cards[key].faceUp);
+    })
 }
