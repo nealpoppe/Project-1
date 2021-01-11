@@ -1,18 +1,4 @@
-/*
-create a 4x4 grid (16 objects)
-initially blue back
-will need 8 pictures for the pairs
-can hard code which picture goes where
-on click will reveal picture
-    need to store image on click
-    will need to compare after the second click
-can only click twice
-    if they match, they stay face up and the user can click again
-    if they do not match, they flip back down
-*/
-
-// initial cards object
-// hard coded for now
+// initial hard coded cards object
 var cards = {
     box01: {card: "Cow", faceUp: false},
     box02: {card: "Goat", faceUp: false},
@@ -40,27 +26,26 @@ let cardTwo = "";
 let currentCard = document.querySelectorAll(".cards");
 let currentTurn = document.querySelector(".playerPrompt");
 let match = document.querySelector(".matchCase");
+
 for(i=0; i<currentCard.length; i++) {
     currentCard[i].addEventListener("click", function(e) {
         e.preventDefault();
-        // testing if first click
-        // need to change style on click to show the front of the card
-        // and the text from the object
+        // first click
         if(currentTurn.innerHTML == "Please choose your first card") {
             cardOne = e.target.id;
             cardFlipUp(cardOne, e);
             currentTurn.innerHTML = "Please choose your second card";
             match.innerHTML = "Try for a match";
-
+        // second click
         }else if(currentTurn.innerHTML == "Please choose your second card") {
             cardTwo = e.target.id;
             cardFlipUp(cardTwo, e);
             currentTurn.innerHTML = "Please choose your first card"
-
+            // matched cards correctly
             if(cards[cardOne].card == cards[cardTwo].card) {
                 match.innerHTML = "It's a match!";
                 console.log("It's a match!");
-        
+            // did not match cards correctly
             }else {
                 match.innerHTML = "Try again!"
                 console.log("Try again!");
@@ -71,13 +56,21 @@ for(i=0; i<currentCard.length; i++) {
     })
 }
 
+// turning a card up
 function cardFlipUp(myCard, e) {
     e.target.style.background = "white";
     e.target.innerHTML = cards[myCard].card;
     cards[myCard].faceUp = true;
 }
 
+// turning a card down
 function resetCards(flipBack) {
+    for(i=0; i<currentCard.length; i++){
+        currentCard[i].removeEventListener("click", function(e){
+            e.preventDefault();
+        })
+
+    }
     setTimeout(() => {
         let resetCard = document.querySelector(`#${flipBack}`);
         resetCard.style.background = "#006680";
