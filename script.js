@@ -46,20 +46,15 @@ for(i=0; i<currentCard.length; i++) {
         // testing if first click
         // need to change style on click to show the front of the card
         // and the text from the object
-        // can put card flip into a function to avoid code repetition
         if(currentTurn.innerHTML == "Please choose your first card") {
             cardOne = e.target.id;
-            e.target.style.background = "white";
-            e.target.innerHTML = cards[cardOne].card;
-            cards[cardOne].faceUp = true;
-            currentTurn.innerHTML = "Please choose your second card"
-            match.innerHTML = "Try for a match"
-            // console.log(cards[cardOne]);
+            cardFlipUp(cardOne, e);
+            currentTurn.innerHTML = "Please choose your second card";
+            match.innerHTML = "Try for a match";
+
         }else if(currentTurn.innerHTML == "Please choose your second card") {
             cardTwo = e.target.id;
-            e.target.style.background = "white";
-            e.target.innerHTML = cards[cardTwo].card;
-            cards[cardTwo].faceUp = true;
+            cardFlipUp(cardTwo, e);
             currentTurn.innerHTML = "Please choose your first card"
 
             if(cards[cardOne].card == cards[cardTwo].card) {
@@ -68,27 +63,27 @@ for(i=0; i<currentCard.length; i++) {
         
             }else {
                 match.innerHTML = "Try again!"
-                // found setTimeout function at
-                // https://www.sitepoint.com/delay-sleep-pause-wait/
-                setTimeout(() => {
-                    for(i=0; i<currentCard.length; i++) {
-                        e.removeEventListener("click", function(e){
-                        })
-                    }
-                    console.log("Try again!");
-                    // resetting card one
-                    let resetOne = document.querySelector(`#${cardOne}`);
-                    resetOne.style.background = "#006680";
-                    resetOne.innerHTML = "";
-                    cards[cardOne].faceUp = false;
-                    // resetting card two
-                    let resetTwo = document.querySelector(`#${cardTwo}`);
-                    resetTwo.style.background = "#006680";
-                    resetTwo.innerHTML = "";
-                    cards[cardTwo].faceUp = false;
-                }, 2000);
-                document.querySelectorAll(".cards").disable = false;
+                console.log("Try again!");
+                resetCards(cardOne);
+                resetCards(cardTwo);
             }
         }
     })
+}
+
+function cardFlipUp(myCard, e) {
+    e.target.style.background = "white";
+    e.target.innerHTML = cards[myCard].card;
+    cards[myCard].faceUp = true;
+}
+
+function resetCards(flipBack) {
+    setTimeout(() => {
+        let resetCard = document.querySelector(`#${flipBack}`);
+        resetCard.style.background = "#006680";
+        resetCard.innerHTML = "";
+        console.log(resetCard.id);
+        cards[resetCard.id].faceUp = false;
+    }, 2000);
+
 }
