@@ -27,9 +27,45 @@ let currentCard = document.querySelectorAll(".cards");
 let currentTurn = document.querySelector(".playerPrompt");
 let match = document.querySelector(".matchCase");
 
-for(i=0; i<currentCard.length; i++) {
-    currentCard[i].addEventListener("click", function(e) {
-        e.preventDefault();
+// for(i=0; i<currentCard.length; i++) {
+//     currentCard[i].addEventListener("click", function(e) {
+//         e.preventDefault();
+//         // first click
+//         if(currentTurn.innerHTML == "Please choose your first card") {
+//             cardOne = e.target.id;
+//             // can only pick face down cards
+//             if(cards[cardOne].faceUp == false) {
+//                 cardFlipUp(cardOne, e);
+//                 currentTurn.innerHTML = "Please choose your second card";
+//                 match.innerHTML = "Try for a match";
+//             }
+//         // second click
+//         }else if(currentTurn.innerHTML == "Please choose your second card") {
+//             cardTwo = e.target.id;
+//             // can only pick face down cards
+//             if(cards[cardTwo].faceUp == false){
+//                 cardFlipUp(cardTwo, e);
+//                 currentTurn.innerHTML = "Please choose your first card"
+//                 // matched cards correctly
+//                 if(cards[cardOne].card == cards[cardTwo].card) {
+//                     match.innerHTML = "It's a match!";
+//                     console.log("It's a match!");
+//                     winnerWinner();
+//                 // did not match cards correctly
+//                 }else {
+//                     match.innerHTML = "Try again!"
+//                     console.log("Try again!");
+//                     resetCards(cardOne);
+//                     resetCards(cardTwo);
+//                 }
+//             }
+//             cardFlipUp(cardTwo, e);
+//         }
+//     })
+// }
+
+function cardClick(e){
+    e.preventDefault();
         // first click
         if(currentTurn.innerHTML == "Please choose your first card") {
             cardOne = e.target.id;
@@ -57,12 +93,59 @@ for(i=0; i<currentCard.length; i++) {
                     console.log("Try again!");
                     resetCards(cardOne);
                     resetCards(cardTwo);
+
+                    // need to figure out where to add eventListener back in
+                    for(i=0; i<currentCard.length; i++){
+                        currentCard[i].addEventListener("click", cardClick);
+                    }
                 }
             }
             cardFlipUp(cardTwo, e);
         }
-    })
+
 }
+for(i=0; i<currentCard.length; i++) {
+    currentCard[i].addEventListener("click", cardClick);
+}
+
+// // need function(e) to be a specific funcion
+// for(i=0; i<currentCard.length; i++) {
+//     currentCard[i].addEventListener("click", function(e) {
+//         e.preventDefault();
+//         // first click
+//         if(currentTurn.innerHTML == "Please choose your first card") {
+//             cardOne = e.target.id;
+//             // can only pick face down cards
+//             if(cards[cardOne].faceUp == false) {
+//                 cardFlipUp(cardOne, e);
+//                 currentTurn.innerHTML = "Please choose your second card";
+//                 match.innerHTML = "Try for a match";
+//             }
+//         // second click
+//         }else if(currentTurn.innerHTML == "Please choose your second card") {
+//             cardTwo = e.target.id;
+//             // can only pick face down cards
+//             if(cards[cardTwo].faceUp == false){
+//                 cardFlipUp(cardTwo, e);
+//                 currentTurn.innerHTML = "Please choose your first card"
+//                 // matched cards correctly
+//                 if(cards[cardOne].card == cards[cardTwo].card) {
+//                     match.innerHTML = "It's a match!";
+//                     console.log("It's a match!");
+//                     winnerWinner();
+//                 // did not match cards correctly
+//                 }else {
+//                     match.innerHTML = "Try again!"
+//                     console.log("Try again!");
+//                     resetCards(cardOne);
+//                     resetCards(cardTwo);
+//                 }
+//             }
+//             cardFlipUp(cardTwo, e);
+//         }
+//     })
+// }
+
 
 // turning a card up
 function cardFlipUp(myCard, e) {
@@ -73,12 +156,12 @@ function cardFlipUp(myCard, e) {
 
 // turning a card down
 function resetCards(flipBack) {
+    
+    // need to call the event listener function
+    
     // trying to remove event listener
     for(i=0; i<currentCard.length; i++){
-        currentCard[i].removeEventListener("click", function(e){
-            e.preventDefault();
-        })
-
+        currentCard[i].removeEventListener("click", cardClick);
     }
     setTimeout(() => {
         let resetCard = document.querySelector(`#${flipBack}`);
