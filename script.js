@@ -46,13 +46,14 @@ for(i=0; i<currentCard.length; i++) {
         // testing if first click
         // need to change style on click to show the front of the card
         // and the text from the object
+        // can put card flip into a function to avoid code repetition
         if(currentTurn.innerHTML == "Please choose your first card") {
-            match.innerHTML = "";
             cardOne = e.target.id;
             e.target.style.background = "white";
             e.target.innerHTML = cards[cardOne].card;
             cards[cardOne].faceUp = true;
             currentTurn.innerHTML = "Please choose your second card"
+            match.innerHTML = "Try for a match"
             // console.log(cards[cardOne]);
         }else if(currentTurn.innerHTML == "Please choose your second card") {
             cardTwo = e.target.id;
@@ -60,44 +61,34 @@ for(i=0; i<currentCard.length; i++) {
             e.target.innerHTML = cards[cardTwo].card;
             cards[cardTwo].faceUp = true;
             currentTurn.innerHTML = "Please choose your first card"
-            
-            // if called this will reset immediatly
-            // isMatch();
 
-            // this works, but will keep running and reset after first card
-            // if not stopped.
-            // setInterval(function() {
-            //     isMatch();
-            // }, 3000);
-
-            // this will wait to reset, but currently will still show first card
-            // document.body.addEventListener("click", isMatch, true);
+            if(cards[cardOne].card == cards[cardTwo].card) {
+                match.innerHTML = "It's a match!";
+                console.log("It's a match!");
+        
+            }else {
+                match.innerHTML = "Try again!"
+                // found setTimeout function at
+                // https://www.sitepoint.com/delay-sleep-pause-wait/
+                setTimeout(() => {
+                    for(i=0; i<currentCard.length; i++) {
+                        e.removeEventListener("click", function(e){
+                        })
+                    }
+                    console.log("Try again!");
+                    // resetting card one
+                    let resetOne = document.querySelector(`#${cardOne}`);
+                    resetOne.style.background = "#006680";
+                    resetOne.innerHTML = "";
+                    cards[cardOne].faceUp = false;
+                    // resetting card two
+                    let resetTwo = document.querySelector(`#${cardTwo}`);
+                    resetTwo.style.background = "#006680";
+                    resetTwo.innerHTML = "";
+                    cards[cardTwo].faceUp = false;
+                }, 2000);
+                document.querySelectorAll(".cards").disable = false;
+            }
         }
     })
-}
-
-// function to check match
-function isMatch(){
-    // if it's a match, leave the cards face up
-    if(cards[cardOne].card == cards[cardTwo].card) {
-        console.log("It's a match!")
-
-    }
-
-    // NEED TO FIGURE OUT HOW TO LEAVE THE SECOND CARD UP FOR A TIME PERIOD
-    // OR RESET ON CLICK
-    else {
-        console.log("Try again.");
-        console.log(cardOne);
-        // resetting card one
-        let resetOne = document.querySelector(`#${cardOne}`);
-        resetOne.style.background = "#006680";
-        resetOne.innerHTML = "";
-        cards[cardOne].faceUp = false;
-        // resetting card two
-        let resetTwo = document.querySelector(`#${cardTwo}`);
-        resetTwo.style.background = "#006680";
-        resetTwo.innerHTML = "";
-        cards[cardTwo].faceUp = false;
-    }
 }

@@ -1,4 +1,4 @@
-.title, .playerPrompt {
+.title, .playerPrompt, .matchCase {
     text-align: center;
     font: 20px Arial, sans-serif;
 }
