@@ -75,7 +75,7 @@ function cardClick(e){
 
 // turning a card up
 function cardFlipUp(myCard, e) {
-    e.target.style.background = "white";
+    e.target.style.background = "lightgrey";
     e.target.innerHTML = cards[myCard].card;
     cards[myCard].faceUp = true;
 }
@@ -87,7 +87,7 @@ function resetCards(flipBack) {
         resetCard.style.background = "#006680";
         resetCard.innerHTML = "";
         cards[resetCard.id].faceUp = false;
-        //adding event listener back in
+        //turn event listener back on
         for(i=0; i<currentCard.length; i++){
             currentCard[i].addEventListener("click", cardClick);
         }

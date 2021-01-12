@@ -36,7 +36,9 @@ body{
     display: block;
     border-radius: 15px;
     border-style: solid;
+    border-color: black;
     font: 15px Arial, sans-serif;
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: lightgray;
 }
