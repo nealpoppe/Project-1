@@ -83,7 +83,7 @@ function cardFlipUp(myCard, e) {
 function resetCard(flipBack) {
     setTimeout(() => {
         let resetCard = document.querySelector(`#${flipBack}`);
-        resetCard.style.background = "#006680";
+        resetCard.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCI98Wf5S_6vHP1DNROEPZA7wmRmbskrpknA&usqp=CAU')";
         resetCard.innerHTML = "";
         cards[resetCard.id].faceUp = false;
         //turn event listener back on
@@ -107,7 +107,7 @@ let reset = document.querySelector("#reset");
 reset.addEventListener("click", function(e) {
     for(i=0; i<currentCard.length; i++) {
         let resetAll = document.querySelector(`#${Object.keys(cards)[i]}`);
-        resetAll.style.background = "#006680";
+        resetAll.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCI98Wf5S_6vHP1DNROEPZA7wmRmbskrpknA&usqp=CAU')";
         resetAll.innerHTML = "";
         cards[resetAll.id].faceUp = false;
         currentTurn.innerHTML = "Please choose your first card";
