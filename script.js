@@ -1,6 +1,3 @@
-// gold
-// dynamic grid
-
 // initial hard coded cards object
 var cards = {
     box01: {card: "Cow", faceUp: false},
