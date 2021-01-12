@@ -1,3 +1,6 @@
+// gold
+// dynamic grid
+
 // initial hard coded cards object
 var cards = {
     box01: {card: "Cow", faceUp: false},
@@ -22,6 +25,7 @@ var cards = {
 let cardOne = "";
 let cardTwo = "";
 let score = 0;
+let winTotal = 0;
 
 // setting up click event
 let currentCard = document.querySelectorAll(".cards");
@@ -51,11 +55,11 @@ function cardClick(e){
             // can only pick face down cards
             if(cards[cardTwo].faceUp == false){
                 cardFlipUp(cardTwo, e);
-                currentTurn.innerHTML = "Please choose your first card"
+                currentTurn.innerHTML = "Please choose your first card";
                 // matched cards correctly
                 if(cards[cardOne].card == cards[cardTwo].card) {
                     score += 1;
-                    match.innerHTML = `Number of matches = ${score}`;
+                    match.innerHTML = `Matches = ${score} || Wins = ${winTotal}`;
                     winnerWinner();
                 // did not match cards correctly
                 }else {
@@ -82,6 +86,8 @@ function cardFlipUp(myCard, e) {
 function resetCard(flipBack) {
     setTimeout(() => {
         let resetCard = document.querySelector(`#${flipBack}`);
+        console.log(resetCard);
+        console.log(flipBack);
         resetCard.style.background = "#006680";
         resetCard.innerHTML = "";
         cards[resetCard.id].faceUp = false;
@@ -96,12 +102,33 @@ function resetCard(flipBack) {
 function winnerWinner() {
     if (score == 8){
         currentTurn.innerHTML = "You win! Reset to try again";
+        winTotal += 1;
+        match.innerHTML = `Matches = ${score} || Wins = ${winTotal}`;
+        console.log(winTotal);
     }
-
 }
 
 // reset button
 let reset = document.querySelector("#reset");
 reset.addEventListener("click", function(e) {
-  window.location.reload();
+    console.log("reset");
+
+    for(i=0; i<currentCard.length; i++) {
+        //console.log(Object.keys(cards)[i]);
+        let resetAll = document.querySelector(`#${Object.keys(cards)[i]}`);
+        resetAll.style.background = "#006680";
+        resetAll.innerHTML = "";
+        cards[resetAll.id].faceUp = false;
+        currentTurn.innerHTML = "Please choose your first card";
+        match.innerHTML = `Matches = 0 || Wins = ${winTotal}`;
+        score = 0;
+    }
+    for(i=0; i<currentCard.length; i++) {
+        currentCard[i].addEventListener("click", cardClick);
+    }
+
+    // MVP code
+    // this will work to refresh the page
+    // but will wipe out win total
+    // window.location.reload();
 })
