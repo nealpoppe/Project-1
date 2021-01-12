@@ -43,7 +43,7 @@ function cardClick(e){
             if(cards[cardOne].faceUp == false) {
                 cardFlipUp(cardOne, e);
                 currentTurn.innerHTML = "Please choose your second card";
-                match.innerHTML = "Try for a match";
+                // match.innerHTML = "Try for a match";
             }
         // second click
         }else if(currentTurn.innerHTML == "Please choose your second card") {
@@ -54,8 +54,8 @@ function cardClick(e){
                 currentTurn.innerHTML = "Please choose your first card"
                 // matched cards correctly
                 if(cards[cardOne].card == cards[cardTwo].card) {
-                    match.innerHTML = "It's a match!";
                     score += 1;
+                    match.innerHTML = `Number of matches = ${score}`;
                     winnerWinner();
                 // did not match cards correctly
                 }else {
@@ -63,7 +63,6 @@ function cardClick(e){
                     for(i=0; i<currentCard.length; i++){
                         currentCard[i].removeEventListener("click", cardClick);
                     }
-                    match.innerHTML = "Try again!"
                     resetCard(cardOne);
                     resetCard(cardTwo);
                 }
@@ -96,8 +95,7 @@ function resetCard(flipBack) {
 // win condition
 function winnerWinner() {
     if (score == 8){
-        currentTurn.innerHTML = "Congratulations! You win!";
-        match.innerHTML = "Reset to try again";
+        currentTurn.innerHTML = "You win! Reset to try again";
     }
 
 }
