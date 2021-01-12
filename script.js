@@ -58,21 +58,14 @@ function cardClick(e){
                     winnerWinner();
                 // did not match cards correctly
                 }else {
-
                     // turn off event listener
                     for(i=0; i<currentCard.length; i++){
                         currentCard[i].removeEventListener("click", cardClick);
                     }
-
                     match.innerHTML = "Try again!"
                     console.log("Try again!");
                     resetCards(cardOne);
                     resetCards(cardTwo);
-
-                    // need to figure out where to add eventListener back in
-                    // for(i=0; i<currentCard.length; i++){
-                    //     currentCard[i].addEventListener("click", cardClick);
-                    // }
                 }
             }
             cardFlipUp(cardTwo, e);
@@ -89,38 +82,19 @@ function cardFlipUp(myCard, e) {
 
 // turning a card down
 function resetCards(flipBack) {
-    
-    
-    // trying to remove event listener - did not work
-    // for(i=0; i<currentCard.length; i++){
-    //     currentCard[i].removeEventListener("click", cardClick);
-    // }
-
     setTimeout(() => {
-        
-        // trying to remove event listener - did not work
-        // for(i=0; i<currentCard.length; i++){
-        //     currentCard[i].removeEventListener("click", cardClick);
-        // }
-
         let resetCard = document.querySelector(`#${flipBack}`);
         resetCard.style.background = "#006680";
         resetCard.innerHTML = "";
         cards[resetCard.id].faceUp = false;
-
-        // trying to remove event listener
-        // for(i=0; i<currentCard.length; i++){
-        //     currentCard[i].removeEventListener("click", cardClick);
-        // }
-
+        //adding event listener back in
+        for(i=0; i<currentCard.length; i++){
+            currentCard[i].addEventListener("click", cardClick);
+        }
     }, 2000);
-    
-    // adding event listener back in
-    // for(i=0; i<currentCard.length; i++){
-    //     currentCard[i].addEventListener("click", cardClick);
-    // }
 }
 
+// win condition
 function winnerWinner() {
     Object.keys(cards).forEach(function(key) {
         
@@ -128,6 +102,7 @@ function winnerWinner() {
     })
 }
 
+// reset button
 let reset = document.querySelector("#reset");
 reset.addEventListener("click", function(e) {
   window.location.reload();
