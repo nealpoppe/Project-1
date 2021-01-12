@@ -18,9 +18,10 @@ var cards = {
     box16: {card: "Donkey", faceUp: false}
 }
 
-// variables to hold cards to compare
+// variables to hold cards and score
 let cardOne = "";
 let cardTwo = "";
+let score = 0;
 
 // setting up click event
 let currentCard = document.querySelectorAll(".cards");
@@ -54,7 +55,7 @@ function cardClick(e){
                 // matched cards correctly
                 if(cards[cardOne].card == cards[cardTwo].card) {
                     match.innerHTML = "It's a match!";
-                    console.log("It's a match!");
+                    score += 1;
                     winnerWinner();
                 // did not match cards correctly
                 }else {
@@ -63,14 +64,12 @@ function cardClick(e){
                         currentCard[i].removeEventListener("click", cardClick);
                     }
                     match.innerHTML = "Try again!"
-                    console.log("Try again!");
-                    resetCards(cardOne);
-                    resetCards(cardTwo);
+                    resetCard(cardOne);
+                    resetCard(cardTwo);
                 }
             }
             cardFlipUp(cardTwo, e);
         }
-
 }
 
 // turning a card up
@@ -81,7 +80,7 @@ function cardFlipUp(myCard, e) {
 }
 
 // turning a card down
-function resetCards(flipBack) {
+function resetCard(flipBack) {
     setTimeout(() => {
         let resetCard = document.querySelector(`#${flipBack}`);
         resetCard.style.background = "#006680";
@@ -96,10 +95,11 @@ function resetCards(flipBack) {
 
 // win condition
 function winnerWinner() {
-    Object.keys(cards).forEach(function(key) {
-        
-        console.log(cards[key].faceUp);
-    })
+    if (score == 8){
+        currentTurn.innerHTML = "Congratulations! You win!";
+        match.innerHTML = "Reset to try again";
+    }
+
 }
 
 // reset button
