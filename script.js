@@ -86,8 +86,6 @@ function cardFlipUp(myCard, e) {
 function resetCard(flipBack) {
     setTimeout(() => {
         let resetCard = document.querySelector(`#${flipBack}`);
-        console.log(resetCard);
-        console.log(flipBack);
         resetCard.style.background = "#006680";
         resetCard.innerHTML = "";
         cards[resetCard.id].faceUp = false;
@@ -104,24 +102,20 @@ function winnerWinner() {
         currentTurn.innerHTML = "You win! Reset to try again";
         winTotal += 1;
         match.innerHTML = `Matches = ${score} || Wins = ${winTotal}`;
-        console.log(winTotal);
     }
 }
 
 // reset button
 let reset = document.querySelector("#reset");
 reset.addEventListener("click", function(e) {
-    console.log("reset");
-
     for(i=0; i<currentCard.length; i++) {
-        //console.log(Object.keys(cards)[i]);
         let resetAll = document.querySelector(`#${Object.keys(cards)[i]}`);
         resetAll.style.background = "#006680";
         resetAll.innerHTML = "";
         cards[resetAll.id].faceUp = false;
         currentTurn.innerHTML = "Please choose your first card";
-        match.innerHTML = `Matches = 0 || Wins = ${winTotal}`;
         score = 0;
+        match.innerHTML = `Matches = ${score} || Wins = ${winTotal}`;
     }
     for(i=0; i<currentCard.length; i++) {
         currentCard[i].addEventListener("click", cardClick);
