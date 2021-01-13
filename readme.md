@@ -10,6 +10,22 @@ This will be a memory game. The player will be able to select two cards. If the 
 * track matches
 * track scores
 
+### Examples
+```// turning a card down
+function resetCard(flipBack) {
+    setTimeout(() => {
+        let resetCard = document.querySelector(`#${flipBack}`);
+        resetCard.style.backgroundImage = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCI98Wf5S_6vHP1DNROEPZA7wmRmbskrpknA&usqp=CAU')";
+        resetCard.innerHTML = "";
+        cards[resetCard.id].faceUp = false;
+        //turn event listener back on
+        for(i=0; i<currentCard.length; i++){
+            currentCard[i].addEventListener("click", cardClick);
+        }
+    }, 2000);
+}
+```
+
 ### Technology used
 * HTML
 * CSS
