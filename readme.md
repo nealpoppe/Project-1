@@ -11,6 +11,7 @@ This will be a memory game. The player will be able to select two cards. If the 
 * track scores
 
 ### Examples
+This section turns a card face down and resets the values changed when turning it up. The event listeners are turned off on the second card click so here they are turned back on. It is in a setTimeout to delay the flip down so players can see what they clicked.
 ```// turning a card down
 function resetCard(flipBack) {
     setTimeout(() => {
