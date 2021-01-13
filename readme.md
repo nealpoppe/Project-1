@@ -1,5 +1,3 @@
-## Neal Poppe
-
 ## Project 1: Build a game -Flash Cards (Memory)
 
 This will be a memory game. The player will be able to select two cards. If the cards match, they will stay face up. If they do not, they will be flipped face down.
