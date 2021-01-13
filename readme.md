@@ -1,10 +1,10 @@
-##Neal Poppe
+## Neal Poppe
 
-##Project 1: Build a game -Flash Cards (Memory)
+## Project 1: Build a game -Flash Cards (Memory)
 
 This will be a memory game. The player will be able to select two cards. If the cards match, they will stay face up. If they do not, they will be flipped face down.
 
-###Current Features
+### Current Features
 * 4x4 grid
 * image card backs
 * text cards
@@ -12,7 +12,7 @@ This will be a memory game. The player will be able to select two cards. If the 
 * track matches
 * track scores
 
-###Technology used
+### Technology used
 * HTML
 * CSS
 * Javascript
